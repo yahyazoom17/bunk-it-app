@@ -1,7 +1,7 @@
 import type { IconType } from "react-icons";
 
 interface Props {
-  text: string;
+  text?: string;
   icon?: IconType;
   iconSize?: number;
   disabled?: boolean;
@@ -10,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-const PrimaryBtn = ({
+const GhostBtn = ({
   text,
   onClick,
   disabled,
@@ -23,7 +23,7 @@ const PrimaryBtn = ({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`text-white bg-purple-600 font-semibold px-3 py-2 rounded-full cursor-pointer hover:bg-purple-500 flex ${
+      className={`font-semibold px-3 py-2 rounded-full cursor-pointer hover:bg-gray-100 flex ${
         reverse ? "flex-row-reverse" : "flex-row"
       } items-center justify-between transition-all gap-1 disabled:opacity-50 disabled:cursor-not-allowed ${
         className ?? ""
@@ -35,4 +35,4 @@ const PrimaryBtn = ({
   );
 };
 
-export default PrimaryBtn;
+export default GhostBtn;

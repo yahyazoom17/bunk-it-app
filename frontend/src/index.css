@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+.manrope {
+  font-family: "Manrope", sans-serif;
+}
+
+.inter {
+  font-family: "Inter", sans-serif;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

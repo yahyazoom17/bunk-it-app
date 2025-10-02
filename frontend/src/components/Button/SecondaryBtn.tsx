@@ -6,7 +6,7 @@ interface Props {
   iconSize?: number;
   disabled?: boolean;
   reverse?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }
 
