@@ -25,7 +25,7 @@ const GhostBtn = ({
       disabled={disabled}
       className={`font-semibold px-3 py-2 rounded-full cursor-pointer hover:bg-gray-100 flex ${
         reverse ? "flex-row-reverse" : "flex-row"
-      } items-center justify-between transition-all gap-1 disabled:opacity-50 disabled:cursor-not-allowed ${
+      } items-center justify-center transition-all gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${
         className ?? ""
       }`}
     >

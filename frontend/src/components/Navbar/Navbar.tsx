@@ -48,7 +48,7 @@ const Navbar = () => {
   return (
     <div className="max-w-4xl p-2 w-full mt-2">
       <nav className="flex flex-row items-center justify-between w-full p-2 rounded-full shadow-md">
-        <h1 className="font-bold text-4xl mx-3">
+        <h1 className="font-extrabold manrope text-4xl mx-3">
           bunk<span className="text-purple-600">it</span>
         </h1>
         <div className="flex flex-row items-center gap-2">
@@ -60,6 +60,7 @@ const Navbar = () => {
                 iconSize={18}
                 onClick={handleLogin}
                 disabled={user !== "user"}
+                className="manrope"
               />
             </div>
           ) : (
@@ -69,7 +70,7 @@ const Navbar = () => {
                 iconSize={30}
                 onClick={() => setOpen(!open)}
                 disabled={user === "user"}
-                className="focus:outline-none"
+                className="focus:outline-none manrope"
               />
               {open && (
                 <div className="absolute right-0 mt-2 w-38 md:w-48 bg-white border rounded-lg shadow-lg">
@@ -80,7 +81,7 @@ const Navbar = () => {
                         iconSize={18}
                         text="View Profile"
                         onClick={handleLogout}
-                        className="flex items-center gap-1 w-full justify-normal rounded-none"
+                        className="flex items-center gap-1 w-full justify-normal rounded-none manrope"
                       />
                     </li>
                     <li>
@@ -89,7 +90,7 @@ const Navbar = () => {
                         iconSize={18}
                         text="Settings"
                         onClick={handleLogout}
-                        className="flex items-center gap-1 w-full justify-normal rounded-none"
+                        className="flex items-center gap-1 w-full justify-normal rounded-none manrope"
                       />
                     </li>
                     <li>
@@ -98,7 +99,7 @@ const Navbar = () => {
                         iconSize={18}
                         text="Logout"
                         onClick={handleLogout}
-                        className="flex items-center gap-1 w-full justify-normal rounded-none"
+                        className="flex items-center gap-1 w-full justify-normal rounded-none manrope"
                       />
                     </li>
                   </ul>
