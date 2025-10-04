@@ -30,7 +30,7 @@ const PresentBtn = ({
       }`}
     >
       {Icon && <Icon size={iconSize} />}
-      {text}
+      <span className="w-full">{text}</span>
     </button>
   );
 };
