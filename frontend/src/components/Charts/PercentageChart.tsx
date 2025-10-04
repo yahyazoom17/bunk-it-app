@@ -2,14 +2,19 @@ import { Cell, Label, Pie, PieChart } from "recharts";
 
 const COLORS = ["#a855f7", "#e5e7eb"];
 
-const PercentageChart = () => {
-  const percentage = 85;
+interface Props {
+  attended: number;
+  totalClasses: number;
+}
+
+const PercentageChart = ({ attended, totalClasses }: Props) => {
+  const percentage = parseFloat(((attended / totalClasses) * 100).toFixed(2));
   const data = [
-    { name: "Attended", value: 6 },
-    { name: "Remaining", value: 20 - 6 },
+    { name: "Attended", value: attended },
+    { name: "Remaining", value: totalClasses - attended },
   ];
   return (
-    <div className="w-20 h-20">
+    <div className="w-full h-20">
       <PieChart width={100} height={80}>
         <Pie
           data={data}
