@@ -3,6 +3,7 @@ import type { IconType } from "react-icons";
 interface Props {
   text: string;
   icon?: IconType;
+  type?: "button" | "submit" | "reset" | undefined;
   iconSize?: number;
   disabled?: boolean;
   reverse?: boolean;
@@ -12,6 +13,7 @@ interface Props {
 
 const PrimaryBtn = ({
   text,
+  type,
   onClick,
   disabled,
   icon: Icon,
@@ -21,6 +23,7 @@ const PrimaryBtn = ({
 }: Props) => {
   return (
     <button
+      type={type || "button"}
       onClick={onClick}
       disabled={disabled}
       className={`text-white bg-purple-600 font-semibold px-3 py-2 rounded-full cursor-pointer hover:bg-purple-500 flex ${

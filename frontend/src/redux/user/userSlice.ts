@@ -4,12 +4,18 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 
+import axios from "axios";
+
+import type { StudentData } from "../../types/userTypes";
+
 interface UserState {
-  name: string;
+  student: StudentData;
+  loading: boolean;
 }
 
 const initialState: UserState = {
-  name: "user",
+  student: { name: "student", gender: "" },
+  loading: false,
 };
 
 const userSlice = createSlice({
@@ -17,27 +23,42 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     userLogIn: (state) => {
-      state.name = "Yahya";
+      state.student.name = "Yahya";
     },
     userLogOut: (state) => {
-      state.name = "user";
+      state.student = initialState.student;
     },
     saveUser: (state, action: PayloadAction<string>) => {
-      state.name = action.payload;
+      state.student.name = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(saveUserAsync.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(
         saveUserAsync.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          state.name = action.payload;
+        (state, action: PayloadAction<StudentData>) => {
+          state.student = action.payload;
+          state.loading = false;
         }
       )
       .addCase(
         removeUserAsync.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          state.name = action.payload;
+        (state, action: PayloadAction<StudentData>) => {
+          state.student = action.payload;
+          state.loading = false;
+        }
+      )
+      .addCase(fetchUserAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        fetchUserAsync.fulfilled,
+        (state, action: PayloadAction<StudentData>) => {
+          state.student = action.payload;
+          state.loading = false;
         }
       );
   },
@@ -45,17 +66,31 @@ const userSlice = createSlice({
 
 export const saveUserAsync = createAsyncThunk(
   "user/saveUserAsync",
-  async (name: string) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return name;
+  async (studentData: StudentData) => {
+    const res = await axios.post(
+      `http://localhost:5000/student/add`,
+      studentData
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);
+
+export const fetchUserAsync = createAsyncThunk(
+  "user/fetchUserAsync",
+  async (studentId: string) => {
+    const res = await axios.get(`http://localhost:5000/student/${studentId}`);
+    console.log(res.data);
+    const { name, dob, gender, department } = res.data;
+    return { name, dob, gender, department };
   }
 );
 
 export const removeUserAsync = createAsyncThunk(
   "user/removeUserAsync",
-  async (name: string) => {
+  async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return name;
+    return initialState.student;
   }
 );
 

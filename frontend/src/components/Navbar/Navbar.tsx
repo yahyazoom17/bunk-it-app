@@ -8,42 +8,32 @@ import {
   LuSettings,
 } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { AppDispatch, RootState } from "../../redux/store";
-import { removeUserAsync, saveUserAsync } from "../../redux/user/userSlice";
+import { removeUserAsync } from "../../redux/user/userSlice";
 import GhostBtn from "../Button/GhostBtn";
 import PrimaryBtn from "../Button/PrimaryBtn";
 
 const Navbar = () => {
-  const user = useSelector((state: RootState) => state.user.name);
+  const user = useSelector((state: RootState) => state.user.student.name);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
   const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogout = () => {
     toast.promise(
-      dispatch(saveUserAsync("Yahya")),
+      dispatch(removeUserAsync()),
       {
-        loading: "Signing in...",
-        success: "Login Successful!",
+        loading: "Signing out...",
+        success: `Logout Successful!`,
         error: "Login failed!",
       },
       {
         duration: 2000,
       }
     );
-  };
-
-  const handleLogout = () => {
-    toast.promise(
-      dispatch(removeUserAsync("user")),
-      {
-        loading: "Signing out...",
-        success: "Logout Successful!",
-        error: "Logout failed!",
-      },
-      {
-        duration: 2000,
-      }
-    );
+    navigate("/login");
   };
   return (
     <div className="max-w-4xl p-2 w-full mt-2">
@@ -52,16 +42,19 @@ const Navbar = () => {
           bunk<span className="text-purple-600">it</span>
         </h1>
         <div className="flex flex-row items-center gap-2">
-          {user === "user" ? (
+          {user === "student" ? (
             <div>
-              <PrimaryBtn
-                text="Login"
-                icon={LuLogIn}
-                iconSize={18}
-                onClick={handleLogin}
-                disabled={user !== "user"}
-                className="manrope"
-              />
+              {location.pathname !== "/login" && (
+                <Link to={"/login"}>
+                  <PrimaryBtn
+                    text="Login"
+                    icon={LuLogIn}
+                    iconSize={18}
+                    disabled={user !== "student"}
+                    className="manrope"
+                  />
+                </Link>
+              )}
             </div>
           ) : (
             <div className="relative">
@@ -69,7 +62,7 @@ const Navbar = () => {
                 icon={LuCircleUserRound}
                 iconSize={30}
                 onClick={() => setOpen(!open)}
-                disabled={user === "user"}
+                disabled={user === "student"}
                 className="focus:outline-none manrope"
               />
               {open && (
