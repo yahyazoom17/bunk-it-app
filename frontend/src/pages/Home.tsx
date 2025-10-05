@@ -1,42 +1,41 @@
+import { useEffect } from "react";
+import { FaRegSmileWink } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import ClassCard from "../components/Cards/ClassCard";
 import Navtabs from "../components/Navbar/Navtabs";
+import { fetchClassesAsync } from "../redux/class/classSlice";
+import type { AppDispatch, RootState } from "../redux/store";
+import { fetchTodayAsync } from "../redux/time/todaySlice";
 import type { ClassData } from "../types/classTypes";
 
-const dummyData: ClassData = {
-  subjectName: "ECE",
-  isBunkable: true,
-  totalAttended: 13,
-  totalClasses: 20,
-  isPresent: false,
-  isAbsent: false,
-  noClass: false,
-  classDate: "Oct 3, Fri 2025",
-};
-
-const dummyData2: ClassData = {
-  subjectName: "Maths",
-  isBunkable: false,
-  totalAttended: 13,
-  totalClasses: 15,
-  isPresent: false,
-  isAbsent: false,
-  noClass: false,
-  classDate: "Oct 3, Fri 2025",
-};
-
 const Home = () => {
+  const today = useSelector((state: RootState) => state.today.today);
+  const classes = useSelector((state: RootState) => state.class.data);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchTodayAsync());
+    dispatch(fetchClassesAsync());
+  }, [dispatch]);
+
   return (
     <>
       <Navtabs />
       <div className="w-full max-w-4xl">
         <div className="p-3 mx-3 mb-1 text-xl manrope font-extrabold">
-          {"October 3, Friday - 2025"}
+          {today}
         </div>
-        <div className="h-120 overflow-y-auto">
-          <ClassCard data={dummyData} />
-          <ClassCard data={dummyData2} />
-          <ClassCard data={dummyData2} />
-          <ClassCard data={dummyData2} />
+        <div className="h-100vh overflow-y-auto">
+          {classes.length > 0 ? (
+            classes.map((cls: ClassData, index) => (
+              <ClassCard data={cls} key={index} />
+            ))
+          ) : (
+            <div className="mt-30 mx-3 mb-1 text-md manrope font-semibold text-center flex flex-col items-center justify-center space-y-5">
+              <FaRegSmileWink size={60} className="text-gray-500" />
+              <div className="text-gray-500">No classes for today, enjoy!</div>
+            </div>
+          )}
         </div>
       </div>
     </>

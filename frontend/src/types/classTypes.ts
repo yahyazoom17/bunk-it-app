@@ -6,5 +6,5 @@ export type ClassData = {
   isPresent: boolean;
   isAbsent: boolean;
   noClass: boolean;
-  classDate: string;
+  classDays: string[];
 };
