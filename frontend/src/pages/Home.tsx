@@ -10,13 +10,14 @@ import type { ClassData } from "../types/classTypes";
 
 const Home = () => {
   const today = useSelector((state: RootState) => state.today.today);
+  const day = useSelector((state: RootState) => state.today.day);
   const classes = useSelector((state: RootState) => state.class.data);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchTodayAsync());
-    dispatch(fetchClassesAsync());
-  }, [dispatch]);
+    dispatch(fetchClassesAsync(day));
+  }, [dispatch, day]);
 
   return (
     <>

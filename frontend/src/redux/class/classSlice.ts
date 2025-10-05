@@ -3,6 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
+import axios from "axios";
 import type { ClassData } from "../../types/classTypes";
 
 interface ClassState {
@@ -15,20 +16,12 @@ const initialState: ClassState = {
 
 export const fetchClassesAsync = createAsyncThunk(
   "class/fetchClassesAsync",
-  async () => {
-    const data = [
-      {
-        subjectName: "Maths",
-        isBunkable: false,
-        totalAttended: 13,
-        totalClasses: 15,
-        isPresent: false,
-        isAbsent: false,
-        noClass: false,
-        classDays: ["wednesday", "friday"],
-      },
-    ];
-    return { data };
+  async (day: string) => {
+    const res = await axios.get(
+      `http://localhost:5000/class/student/68e1e677785696f079b00289/${day}`
+    );
+    console.log(res.data);
+    return res.data;
   }
 );
 
@@ -39,8 +32,8 @@ const classSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       fetchClassesAsync.fulfilled,
-      (state, action: PayloadAction<ClassState>) => {
-        state.data = action.payload.data;
+      (state, action: PayloadAction<ClassData[]>) => {
+        state.data = action.payload;
       }
     );
   },

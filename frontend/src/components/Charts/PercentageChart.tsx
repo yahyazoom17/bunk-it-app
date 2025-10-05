@@ -10,8 +10,8 @@ interface Props {
 const PercentageChart = ({ attended, totalClasses }: Props) => {
   const percentage = parseFloat(((attended / totalClasses) * 100).toFixed(2));
   const data = [
-    { name: "Attended", value: attended },
-    { name: "Remaining", value: totalClasses - attended },
+    { name: "Attended", value: attended || 0 },
+    { name: "Remaining", value: totalClasses - attended || 1 },
   ];
   return (
     <div className="w-full h-20">
@@ -29,7 +29,7 @@ const PercentageChart = ({ attended, totalClasses }: Props) => {
             <Cell key={`cell-${index}`} fill={COLORS[index]} />
           ))}
           <Label
-            value={`${percentage}%`}
+            value={`${percentage || 0}%`}
             position="center"
             fill="#1f2937"
             style={{
