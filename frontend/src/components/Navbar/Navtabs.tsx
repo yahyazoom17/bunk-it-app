@@ -8,6 +8,7 @@ import {
 } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import PrimaryBtn from "../Button/PrimaryBtn";
+import { RiRobot2Line } from "react-icons/ri";
 import SecondaryBtn from "../Button/SecondaryBtn";
 
 const Navtabs = () => {
@@ -79,6 +80,23 @@ const Navtabs = () => {
               icon={IoPieChartOutline}
               iconSize={18}
               text="Attendance"
+              className="focus:outline-none text-sm md:text-lg manrope"
+            />
+          )}
+        </Link>
+        <Link to={"/"}>
+          {location.pathname === "/aichat" ? (
+            <PrimaryBtn
+              icon={RiRobot2Line}
+              iconSize={18}
+              text="AI"
+              className="focus:outline-none text-sm md:text-lg manrope"
+            />
+          ) : (
+            <SecondaryBtn
+              icon={RiRobot2Line}
+              iconSize={18}
+              text="AI"
               className="focus:outline-none text-sm md:text-lg manrope"
             />
           )}

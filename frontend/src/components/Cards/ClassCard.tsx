@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AiOutlineStop } from "react-icons/ai";
-import { LuPencil } from "react-icons/lu";
 import { MdClose, MdDone } from "react-icons/md";
 import type { ClassData } from "../../types/classTypes";
 import AbsentBtn from "../Button/AbsentBtn";
@@ -8,6 +7,7 @@ import NoClassBtn from "../Button/NoClassBtn";
 import PresentBtn from "../Button/PresentBtn";
 import SecondaryBtn from "../Button/SecondaryBtn";
 import PercentageChart from "../Charts/PercentageChart";
+import { MdClear } from "react-icons/md";
 
 interface Props {
   data: ClassData;
@@ -90,7 +90,7 @@ const ClassCard = ({ data }: Props) => {
             } w-full ${noClass && "bg-purple-600 text-white"}`}
           />
           {isPresent || isAbsent || noClass ? (
-            <SecondaryBtn icon={LuPencil} iconSize={15} className={`manrope`} />
+            <SecondaryBtn icon={MdClear} iconSize={15} className={`manrope`} />
           ) : (
             <></>
           )}
